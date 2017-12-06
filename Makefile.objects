@@ -1,0 +1,10 @@
+mqseries.lo: /vagrant/environment/php/php71-mqseries/mqseries/mqseries.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/vagrant/environment/php/php71-mqseries/mqseries $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /vagrant/environment/php/php71-mqseries/mqseries/mqseries.c -o mqseries.lo 
+mqseries_helper.lo: /vagrant/environment/php/php71-mqseries/mqseries/mqseries_helper.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/vagrant/environment/php/php71-mqseries/mqseries $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /vagrant/environment/php/php71-mqseries/mqseries/mqseries_helper.c -o mqseries_helper.lo 
+$(phplibdir)/mqseries.la: ./mqseries.la
+	$(LIBTOOL) --mode=install cp ./mqseries.la $(phplibdir)
+
+./mqseries.la: $(shared_objects_mqseries) $(MQSERIES_SHARED_DEPENDENCIES)
+	$(LIBTOOL) --mode=link $(CC) $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) -o $@ -export-dynamic -avoid-version -prefer-pic -module -rpath $(phplibdir) $(EXTRA_LDFLAGS) $(shared_objects_mqseries) $(MQSERIES_SHARED_LIBADD)
+
